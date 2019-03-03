@@ -19,465 +19,472 @@ public class SearchAndSort {
 	public static int type;
 	
 	public static void main(String[] args) throws Exception {
-		
-		//initialize static variables
-		stringList = new ArrayList<String>();
-		intList = new ArrayList<Integer>();
-		
-		Scanner in = new Scanner(System.in);
-		
-		//variable to hold user input
-		String algorithm;
-		String dataFormat;
-		String storageMethod;
-		String[] data;
-		
-		//user input types
-		String[] algorithmTypes = {"bubble", "selection", "insertion", "merge", "linear", "binary", "quit"};
-		String[] dataTypes = {"integers", "strings"};
-		String[] storageTypes = {"list", "array"};
-		
-		//correct user input?
-		boolean valid = false;
-		
-		//prompt for algorithm type
+		boolean done = false;
 		do {
-			//get and check algorithm type
-			System.out.println("What algorithm would you like to use?\nFor sorting, enter bubble, selection, insertion, or merge.\nFor searching, enter linear or binary. To quit, enter quit.");
-			algorithm = in.next().toLowerCase();
-			for(int i = 0; i < algorithmTypes.length - 1; i++) {
-				if(algorithm.equals(algorithmTypes[i])) {
-					valid = true;
-				}
-				if(algorithm.equals("quit")) {
-					System.out.println("Ok, bye!");
-					return;
-				}
-			}
-			if(!valid) {
-				System.out.println("Incorrect input. Try again.");
-			}
-		}while(!valid);
-		
-		valid = false;
-		
-		//prompt for data type
-		do {
-			System.out.println("What type of data will you be entering?\nYou can enter either \"integers\" or \"strings\". To quit, enter quit.");
-			dataFormat = in.next().toLowerCase();
-			for(int i = 0; i < dataTypes.length; i++) {
-				if(dataFormat.equals(dataTypes[i])) {
-					valid = true;
-				}
-				if(algorithm.equals("quit")) {
-					System.out.println("Ok, bye!");
-					return;
-				}
-			}
-			if(!valid) {
-				System.out.println("Incorrect input. Try again.");
-			}
-		}while(!valid);
-		
-		valid = false;
-		
-		//prompt for storage type
-		do {
-			System.out.println("What storage method would you like to use?\nYou can enter either \"list\" or \"array\". To quit, enter quit.");
-			storageMethod = in.next().toLowerCase();
-			for(int i = 0; i < storageTypes.length; i++) {
-				if(storageMethod.equals(storageTypes[i])) {
-					valid = true;
-				}
-				if(storageMethod.equals("quit")) {
-					System.out.println("Ok, bye!");
-					return;
-				}
-			}
-			if(!valid) {
-				System.out.println("Incorrect input. Try again.");
-			}
-		}while(!valid);
-		
-		valid = true;
-		
-		int[] tempArray = null;
-		
-		//prompt for data type
-		do {
-			System.out.println("Please enter your data separated by commas (no spaces). To quit, enter quit.");
-			data = in.next().split(",");
-			if(dataFormat.equals("integers")) {
-				try {
-					tempArray = new int[data.length];
-					for(int i = 0; i < tempArray.length; i++) {
-						tempArray[i] = Integer.parseInt(data[i]);
+			//initialize static variables
+			stringList = new ArrayList<String>();
+			intList = new ArrayList<Integer>();
+			
+			Scanner in = new Scanner(System.in);
+			
+			//variable to hold user input
+			String algorithm;
+			String dataFormat;
+			String storageMethod;
+			String[] data;
+			
+			//user input types
+			String[] algorithmTypes = {"bubble", "selection", "insertion", "merge", "linear", "binary", "quit"};
+			String[] dataTypes = {"integers", "strings"};
+			String[] storageTypes = {"list", "array"};
+			
+			//correct user input?
+			boolean valid = false;
+			
+			//prompt for algorithm type
+			do {
+				//get and check algorithm type
+				System.out.println("What algorithm would you like to use?\nFor sorting, enter bubble, selection, insertion, or merge.\nFor searching, enter linear or binary. To quit, enter quit.");
+				algorithm = in.next().toLowerCase();
+				for(int i = 0; i < algorithmTypes.length - 1; i++) {
+					if(algorithm.equals(algorithmTypes[i])) {
+						valid = true;
 					}
-					valid = true;
+					if(algorithm.equals("quit")) {
+						System.out.println("Ok, bye!");
+						done = true;
+						in.close();
+						return;
+					}
 				}
-				catch(NumberFormatException ex){
+				if(!valid) {
 					System.out.println("Incorrect input. Try again.");
-					valid = false;
-				}				
+				}
+			}while(!valid);
+			
+			valid = false;
+			
+			//prompt for data type
+			do {
+				System.out.println("What type of data will you be entering?\nYou can enter either \"integers\" or \"strings\". To quit, enter quit.");
+				dataFormat = in.next().toLowerCase();
+				for(int i = 0; i < dataTypes.length; i++) {
+					if(dataFormat.equals(dataTypes[i])) {
+						valid = true;
+					}
+					if(algorithm.equals("quit")) {
+						System.out.println("Ok, bye!");
+						done = true;
+						in.close();
+						return;
+					}
+				}
+				if(!valid) {
+					System.out.println("Incorrect input. Try again.");
+				}
+			}while(!valid);
+			
+			valid = false;
+			
+			//prompt for storage type
+			do {
+				System.out.println("What storage method would you like to use?\nYou can enter either \"list\" or \"array\". To quit, enter quit.");
+				storageMethod = in.next().toLowerCase();
+				for(int i = 0; i < storageTypes.length; i++) {
+					if(storageMethod.equals(storageTypes[i])) {
+						valid = true;
+					}
+					if(storageMethod.equals("quit")) {
+						System.out.println("Ok, bye!");
+						done = true;
+						in.close();
+						return;
+					}
+				}
+				if(!valid) {
+					System.out.println("Incorrect input. Try again.");
+				}
+			}while(!valid);
+			
+			valid = true;
+			
+			int[] tempArray = null;
+			
+			//prompt for data type
+			do {
+				System.out.println("Please enter your data separated by commas (no spaces). To quit, enter quit.");
+				data = in.next().split(",");
+				if(dataFormat.equals("integers")) {
+					try {
+						tempArray = new int[data.length];
+						for(int i = 0; i < tempArray.length; i++) {
+							tempArray[i] = Integer.parseInt(data[i]);
+						}
+						valid = true;
+					}
+					catch(NumberFormatException ex){
+						System.out.println("Incorrect input. Try again.");
+						valid = false;
+					}				
+				}
+			}while(!valid);
+			
+			//set data into correct data type
+			if(dataFormat.equals("strings") && storageMethod.equals("array")) {
+				stringArray = data;
+				type = 1;
 			}
-		}while(!valid);
-		
-		//set data into correct data type
-		if(dataFormat.equals("strings") && storageMethod.equals("array")) {
-			stringArray = data;
-			type = 1;
-		}
-		else if(dataFormat.equals("integers") && storageMethod.equals("array")) {
-			intArray = tempArray;
-			type = 2;
-		}
-		else if(dataFormat.equals("strings") && storageMethod.equals("list")) {
-			for(int i = 0; i < data.length; i++) {
-				stringList.add(i, data[i]);
+			else if(dataFormat.equals("integers") && storageMethod.equals("array")) {
+				intArray = tempArray;
+				type = 2;
 			}
-			type = 3;
-		}
-		else if(dataFormat.equals("integers") && storageMethod.equals("list")) {
-			for(int i = 0; i < tempArray.length; i++) {
-				intList.add(i, tempArray[i]);
+			else if(dataFormat.equals("strings") && storageMethod.equals("list")) {
+				for(int i = 0; i < data.length; i++) {
+					stringList.add(i, data[i]);
+				}
+				type = 3;
 			}
-			type = 4;
-		}
-		
-		//call different algorithms
-		switch(algorithm){
-			case "bubble":
-				//stringArray
-				if(type == 1) {
-					bubble(stringArray);
-					System.out.print("bubble: [ ");
-					for(int i = 0; i < stringArray.length - 1; i++) {
-						System.out.print(stringArray[i] + ", ");
-					}
-					System.out.print(stringArray[stringArray.length - 1] + "]");					
-					stringArray = null;
+			else if(dataFormat.equals("integers") && storageMethod.equals("list")) {
+				for(int i = 0; i < tempArray.length; i++) {
+					intList.add(i, tempArray[i]);
 				}
-				else if(type == 2) {
-					bubble(intArray);
-					System.out.print("bubble: [ ");
-					for(int i = 0; i < intArray.length - 1; i++) {
-						System.out.print(intArray[i] + ", ");
-					}
-					System.out.print(intArray[intArray.length - 1] + "]");
-					intArray = null;
-				}
-				else if(type == 3) {
-					bubble(3);
-					System.out.print("bubble: [ ");
-					for(int i = 0; i < stringList.size() - 1; i++) {
-						System.out.print(stringList.get(i) + ", ");
-					}
-					System.out.print(stringList.get(stringList.size() - 1) + "]");
-					stringList = null;
-				}
-				else {
-					bubble(4);
-					System.out.print("bubble: [ ");
-					for(int i = 0; i < intList.size() - 1; i++) {
-						System.out.print(intList.get(i) + ", ");
-					}
-					System.out.print(intList.get(intList.size() - 1) + "]");
-					intList = null;
-				}
-				break;
-			case "selection":
-				//stringArray
-				if(type == 1) {
-					selection(stringArray);
-					System.out.print("selection: [ ");
-					for(int i = 0; i < stringArray.length - 1; i++) {
-						System.out.print(stringArray[i] + ", ");
-					}
-					System.out.print(stringArray[stringArray.length - 1] + "]");
-					stringArray = null;
-				}
-				else if(type == 2) {
-					selection(intArray);
-					System.out.print("selection: [ ");
-					for(int i = 0; i < intArray.length - 1; i++) {
-						System.out.print(intArray[i] + ", ");
-					}
-					System.out.print(intArray[intArray.length - 1] + "]");
-					intArray = null;
-				}
-				else if(type == 3) {
-					selection(3);
-					System.out.print("selection: [ ");
-					for(int i = 0; i < stringList.size() - 1; i++) {
-						System.out.print(stringList.get(i) + ", ");
-					}
-					System.out.print(stringList.get(stringList.size() - 1) + "]");
-					stringList = null;
-				}
-				else {
-					selection(4);
-					System.out.print("selection: [ ");
-					for(int i = 0; i < intList.size() - 1; i++) {
-						System.out.print(intList.get(i) + ", ");
-					}
-					System.out.print(intList.get(intList.size() - 1) + "]");
-					intList = null;
-				}
-				break;
-			case "insertion":
-				if(type == 1) {
-					insertion(stringArray);
-					System.out.print("insertion: [ ");
-					for(int i = 0; i < stringArray.length - 1; i++) {
-						System.out.print(stringArray[i] + ", ");
-					}
-					System.out.print(stringArray[stringArray.length - 1] + "]");					
-					stringArray = null;
-				}
-				else if(type == 2) {
-					insertion(intArray);
-					System.out.print("insertion: [ ");
-					for(int i = 0; i < intArray.length - 1; i++) {
-						System.out.print(intArray[i] + ", ");
-					}
-					System.out.print(intArray[intArray.length - 1] + "]");
-					intArray = null;
-				}
-				else if(type == 3) {
-					insertion(3);
-					System.out.print("insertion: [ ");
-					for(int i = 0; i < stringList.size() - 1; i++) {
-						System.out.print(stringList.get(i) + ", ");
-					}
-					System.out.print(stringList.get(stringList.size() - 1) + "]");
-					stringList = null;
-				}
-				else {
-					insertion(4);
-					System.out.print("insertion: [ ");
-					for(int i = 0; i < intList.size() - 1; i++) {
-						System.out.print(intList.get(i) + ", ");
-					}
-					System.out.print(intList.get(intList.size() - 1) + "]");
-					intList = null;
-				}
-				break;
-			case "merge":
-				if(type == 1) {
-					splitForMerge(stringArray, stringArray.length);
-					System.out.print("merge: [ ");
-					for(int i = 0; i < stringArray.length - 1; i++) {
-						System.out.print(stringArray[i] + ", ");
-					}
-					System.out.print(stringArray[stringArray.length - 1] + "]");					
-					stringArray = null;
-				}
-				else if(type == 2) {
-					splitForMerge( intArray, intArray.length);
-					System.out.print("merge: [ ");
-					for(int i = 0; i < intArray.length - 1; i++) {
-						System.out.print(intArray[i] + ", ");
-					}
-					System.out.print(intArray[intArray.length - 1] + "]");
-					intArray = null;
-				}
-				else if(type == 3) {
-					stringArray = new String[stringList.size()];
-					for(int i = 0; i < stringList.size(); i++) {
-						stringArray[i] = stringList.get(i);
-					}
-					splitForMerge(stringArray, stringArray.length);
-					for(int i = 0; i < stringArray.length; i++) {
-						stringList.set(i, stringArray[i]);
-					}
-					stringArray = null;
-					System.out.print("merge: [ ");
-					for(int i = 0; i < stringList.size() - 1; i++) {
-						System.out.print(stringList.get(i) + ", ");
-					}
-					System.out.print(stringList.get(stringList.size() - 1) + "]");
-					stringList = null;
-				}
-				else {
-					splitForMerge(intList, intList.size());
-					System.out.print("merge: [ ");
-					for(int i = 0; i < intList.size() - 1; i++) {
-						System.out.print(intList.get(i) + ", ");
-					}
-					System.out.print(intList.get(intList.size() - 1) + "]");
-					intList = null;
-				}
-				break;
-			case "linear":
-				if(type == 1) {
-					System.out.println("What string are you looking for?");
-					String key = in.next();
-					int index = linear(stringArray, key);
-					if(index > -1) {
-						System.out.println("The string \"" + key +"\" was found at index " + index + ".");
-					}
-					else {
-						System.out.println("The string \"" + key +"\" was not found in the array provided.");
-					}				
-					stringArray = null;
-				}
-				else if(type == 2) {
-					valid = true;
-					int key = 0;
-					do {
-						valid = true;
-						System.out.println("What integer are you looking for?");
-						try {
-							key = Integer.parseInt(in.next());
-						}catch(NumberFormatException e) {
-							System.out.println("Invalid input. Try again.");
-							valid = false;
+				type = 4;
+			}
+			
+			//call different algorithms
+			switch(algorithm){
+				case "bubble":
+					//stringArray
+					if(type == 1) {
+						bubble(stringArray);
+						System.out.print("bubble: [ ");
+						for(int i = 0; i < stringArray.length - 1; i++) {
+							System.out.print(stringArray[i] + ", ");
 						}
-					}while(!valid);
-					int index = linear(intArray, key);
-					if(index > -1) {
-						System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+						System.out.print(stringArray[stringArray.length - 1] + "]");					
+						stringArray = null;
 					}
-					else {
-						System.out.println("The integer \"" + key +"\" was not found in the array provided.");
-					}				
-					intArray = null;
-				}
-				else if(type == 3) {
-					System.out.println("What string are you looking for?");
-					String key = in.next();
-					stringArray = new String[stringList.size()];
-					for(int i = 0; i < stringList.size(); i++) {
-						stringArray[i] = stringList.get(i);
-					}
-					int index = linear(stringArray, key);
-					if(index > -1) {
-						System.out.println("The string \"" + key +"\" was found at index " + index + ".");
-					}
-					else {
-						System.out.println("The string \"" + key +"\" was not found in the list provided.");
-					}			
-					stringArray = null;
-					stringList = null;
-				}
-				else {
-					valid = true;
-					int key = 0;
-					do {
-						valid = true;
-						System.out.println("What integer are you looking for?");
-						try {
-							key = Integer.parseInt(in.next());
-						}catch(NumberFormatException e) {
-							System.out.println("Invalid input. Try again.");
-							valid = false;
+					else if(type == 2) {
+						bubble(intArray);
+						System.out.print("bubble: [ ");
+						for(int i = 0; i < intArray.length - 1; i++) {
+							System.out.print(intArray[i] + ", ");
 						}
-					}while(!valid);
-					intArray = new int[intList.size()];
-					for(int i = 0; i < intList.size(); i++) {
-						intArray[i] = intList.get(i);
+						System.out.print(intArray[intArray.length - 1] + "]");
+						intArray = null;
 					}
-					int index = linear(intArray, key);
-					if(index > -1) {
-						System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
-					}
-					else {
-						System.out.println("The integer \"" + key +"\" was not found in the array provided.");
-					}				
-					intArray = null;
-					intList = null;
-				}
-				break;
-			case "binary":
-				if(type == 1) {
-					bubble(stringArray);
-					System.out.println("What string are you looking for?");
-					String key = in.next();
-					int index = binary(stringArray, 0, stringArray.length, key);
-					if(index > -1) {
-						System.out.println("The string \"" + key +"\" was found at index " + index + ".");
-					}
-					else {
-						System.out.println("The string \"" + key +"\" was not found in the array provided.");
-					}				
-					stringArray = null;
-				}
-				else if(type == 2) {
-					bubble(intArray);
-					valid = true;
-					int key = 0;
-					do {
-						valid = true;
-						System.out.println("What integer are you looking for?");
-						try {
-							key = Integer.parseInt(in.next());
-						}catch(NumberFormatException e) {
-							System.out.println("Invalid input. Try again.");
-							valid = false;
+					else if(type == 3) {
+						bubble(3);
+						System.out.print("bubble: [ ");
+						for(int i = 0; i < stringList.size() - 1; i++) {
+							System.out.print(stringList.get(i) + ", ");
 						}
-					}while(!valid);
-					int index = binary(intArray, 0, intArray.length, key);
-					if(index > -1) {
-						System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+						System.out.print(stringList.get(stringList.size() - 1) + "]");
+						stringList = null;
 					}
 					else {
-						System.out.println("The integer \"" + key +"\" was not found in the array provided.");
-					}				
-					intArray = null;
-				}
-				else if(type == 3) {
-					bubble(3);
-					System.out.println("What string are you looking for?");
-					String key = in.next();
-					stringArray = new String[stringList.size()];
-					for(int i = 0; i < stringList.size(); i++) {
-						stringArray[i] = stringList.get(i);
-					}
-					int index = binary(stringArray, 0, stringArray.length, key);
-					if(index > -1) {
-						System.out.println("The string \"" + key +"\" was found at index " + index + ".");
-					}
-					else {
-						System.out.println("The string \"" + key +"\" was not found in the list provided.");
-					}			
-					stringArray = null;
-					stringList = null;
-				}
-				else {
-					bubble(4);
-					valid = true;
-					int key = 0;
-					do {
-						valid = true;
-						System.out.println("What integer are you looking for?");
-						try {
-							key = Integer.parseInt(in.next());
-						}catch(NumberFormatException e) {
-							System.out.println("Invalid input. Try again.");
-							valid = false;
+						bubble(4);
+						System.out.print("bubble: [ ");
+						for(int i = 0; i < intList.size() - 1; i++) {
+							System.out.print(intList.get(i) + ", ");
 						}
-					}while(!valid);
-					intArray = new int[intList.size()];
-					for(int i = 0; i < intList.size(); i++) {
-						intArray[i] = intList.get(i);
+						System.out.print(intList.get(intList.size() - 1) + "]");
+						intList = null;
 					}
-					int index = binary(intArray, 0, intArray.length, key);
-					if(index > -1) {
-						System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+					break;
+				case "selection":
+					//stringArray
+					if(type == 1) {
+						selection(stringArray);
+						System.out.print("selection: [ ");
+						for(int i = 0; i < stringArray.length - 1; i++) {
+							System.out.print(stringArray[i] + ", ");
+						}
+						System.out.print(stringArray[stringArray.length - 1] + "]");
+						stringArray = null;
+					}
+					else if(type == 2) {
+						selection(intArray);
+						System.out.print("selection: [ ");
+						for(int i = 0; i < intArray.length - 1; i++) {
+							System.out.print(intArray[i] + ", ");
+						}
+						System.out.print(intArray[intArray.length - 1] + "]");
+						intArray = null;
+					}
+					else if(type == 3) {
+						selection(3);
+						System.out.print("selection: [ ");
+						for(int i = 0; i < stringList.size() - 1; i++) {
+							System.out.print(stringList.get(i) + ", ");
+						}
+						System.out.print(stringList.get(stringList.size() - 1) + "]");
+						stringList = null;
 					}
 					else {
-						System.out.println("The integer \"" + key +"\" was not found in the array provided.");
-					}				
-					intArray = null;
-					intList = null;
-				}
-				break;
-			default:
-				System.out.println("Error! Check algorithm switch case!");
-				break;
-		}
-				
-		in.close();
+						selection(4);
+						System.out.print("selection: [ ");
+						for(int i = 0; i < intList.size() - 1; i++) {
+							System.out.print(intList.get(i) + ", ");
+						}
+						System.out.print(intList.get(intList.size() - 1) + "]");
+						intList = null;
+					}
+					break;
+				case "insertion":
+					if(type == 1) {
+						insertion(stringArray);
+						System.out.print("insertion: [ ");
+						for(int i = 0; i < stringArray.length - 1; i++) {
+							System.out.print(stringArray[i] + ", ");
+						}
+						System.out.print(stringArray[stringArray.length - 1] + "]");					
+						stringArray = null;
+					}
+					else if(type == 2) {
+						insertion(intArray);
+						System.out.print("insertion: [ ");
+						for(int i = 0; i < intArray.length - 1; i++) {
+							System.out.print(intArray[i] + ", ");
+						}
+						System.out.print(intArray[intArray.length - 1] + "]");
+						intArray = null;
+					}
+					else if(type == 3) {
+						insertion(3);
+						System.out.print("insertion: [ ");
+						for(int i = 0; i < stringList.size() - 1; i++) {
+							System.out.print(stringList.get(i) + ", ");
+						}
+						System.out.print(stringList.get(stringList.size() - 1) + "]");
+						stringList = null;
+					}
+					else {
+						insertion(4);
+						System.out.print("insertion: [ ");
+						for(int i = 0; i < intList.size() - 1; i++) {
+							System.out.print(intList.get(i) + ", ");
+						}
+						System.out.print(intList.get(intList.size() - 1) + "]");
+						intList = null;
+					}
+					break;
+				case "merge":
+					if(type == 1) {
+						splitForMerge(stringArray, stringArray.length);
+						System.out.print("merge: [ ");
+						for(int i = 0; i < stringArray.length - 1; i++) {
+							System.out.print(stringArray[i] + ", ");
+						}
+						System.out.print(stringArray[stringArray.length - 1] + "]");					
+						stringArray = null;
+					}
+					else if(type == 2) {
+						splitForMerge( intArray, intArray.length);
+						System.out.print("merge: [ ");
+						for(int i = 0; i < intArray.length - 1; i++) {
+							System.out.print(intArray[i] + ", ");
+						}
+						System.out.print(intArray[intArray.length - 1] + "]");
+						intArray = null;
+					}
+					else if(type == 3) {
+						stringArray = new String[stringList.size()];
+						for(int i = 0; i < stringList.size(); i++) {
+							stringArray[i] = stringList.get(i);
+						}
+						splitForMerge(stringArray, stringArray.length);
+						for(int i = 0; i < stringArray.length; i++) {
+							stringList.set(i, stringArray[i]);
+						}
+						stringArray = null;
+						System.out.print("merge: [ ");
+						for(int i = 0; i < stringList.size() - 1; i++) {
+							System.out.print(stringList.get(i) + ", ");
+						}
+						System.out.print(stringList.get(stringList.size() - 1) + "]");
+						stringList = null;
+					}
+					else {
+						splitForMerge(intList, intList.size());
+						System.out.print("merge: [ ");
+						for(int i = 0; i < intList.size() - 1; i++) {
+							System.out.print(intList.get(i) + ", ");
+						}
+						System.out.print(intList.get(intList.size() - 1) + "]");
+						intList = null;
+					}
+					break;
+				case "linear":
+					if(type == 1) {
+						System.out.println("What string are you looking for?");
+						String key = in.next();
+						int index = linear(stringArray, key);
+						if(index > -1) {
+							System.out.println("The string \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The string \"" + key +"\" was not found in the array provided.");
+						}				
+						stringArray = null;
+					}
+					else if(type == 2) {
+						valid = true;
+						int key = 0;
+						do {
+							valid = true;
+							System.out.println("What integer are you looking for?");
+							try {
+								key = Integer.parseInt(in.next());
+							}catch(NumberFormatException e) {
+								System.out.println("Invalid input. Try again.");
+								valid = false;
+							}
+						}while(!valid);
+						int index = linear(intArray, key);
+						if(index > -1) {
+							System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The integer \"" + key +"\" was not found in the array provided.");
+						}				
+						intArray = null;
+					}
+					else if(type == 3) {
+						System.out.println("What string are you looking for?");
+						String key = in.next();
+						stringArray = new String[stringList.size()];
+						for(int i = 0; i < stringList.size(); i++) {
+							stringArray[i] = stringList.get(i);
+						}
+						int index = linear(stringArray, key);
+						if(index > -1) {
+							System.out.println("The string \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The string \"" + key +"\" was not found in the list provided.");
+						}			
+						stringArray = null;
+						stringList = null;
+					}
+					else {
+						valid = true;
+						int key = 0;
+						do {
+							valid = true;
+							System.out.println("What integer are you looking for?");
+							try {
+								key = Integer.parseInt(in.next());
+							}catch(NumberFormatException e) {
+								System.out.println("Invalid input. Try again.");
+								valid = false;
+							}
+						}while(!valid);
+						intArray = new int[intList.size()];
+						for(int i = 0; i < intList.size(); i++) {
+							intArray[i] = intList.get(i);
+						}
+						int index = linear(intArray, key);
+						if(index > -1) {
+							System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The integer \"" + key +"\" was not found in the array provided.");
+						}				
+						intArray = null;
+						intList = null;
+					}
+					break;
+				case "binary":
+					if(type == 1) {
+						bubble(stringArray);
+						System.out.println("What string are you looking for?");
+						String key = in.next();
+						int index = binary(stringArray, 0, stringArray.length, key);
+						if(index > -1) {
+							System.out.println("The string \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The string \"" + key +"\" was not found in the array provided.");
+						}				
+						stringArray = null;
+					}
+					else if(type == 2) {
+						bubble(intArray);
+						valid = true;
+						int key = 0;
+						do {
+							valid = true;
+							System.out.println("What integer are you looking for?");
+							try {
+								key = Integer.parseInt(in.next());
+							}catch(NumberFormatException e) {
+								System.out.println("Invalid input. Try again.");
+								valid = false;
+							}
+						}while(!valid);
+						int index = binary(intArray, 0, intArray.length, key);
+						if(index > -1) {
+							System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The integer \"" + key +"\" was not found in the array provided.");
+						}				
+						intArray = null;
+					}
+					else if(type == 3) {
+						bubble(3);
+						System.out.println("What string are you looking for?");
+						String key = in.next();
+						stringArray = new String[stringList.size()];
+						for(int i = 0; i < stringList.size(); i++) {
+							stringArray[i] = stringList.get(i);
+						}
+						int index = binary(stringArray, 0, stringArray.length, key);
+						if(index > -1) {
+							System.out.println("The string \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The string \"" + key +"\" was not found in the list provided.");
+						}			
+						stringArray = null;
+						stringList = null;
+					}
+					else {
+						bubble(4);
+						valid = true;
+						int key = 0;
+						do {
+							valid = true;
+							System.out.println("What integer are you looking for?");
+							try {
+								key = Integer.parseInt(in.next());
+							}catch(NumberFormatException e) {
+								System.out.println("Invalid input. Try again.");
+								valid = false;
+							}
+						}while(!valid);
+						intArray = new int[intList.size()];
+						for(int i = 0; i < intList.size(); i++) {
+							intArray[i] = intList.get(i);
+						}
+						int index = binary(intArray, 0, intArray.length, key);
+						if(index > -1) {
+							System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+						}
+						else {
+							System.out.println("The integer \"" + key +"\" was not found in the array provided.");
+						}				
+						intArray = null;
+						intList = null;
+					}
+					break;
+				default:
+					System.out.println("Error! Check algorithm switch case!");
+					break;
+			}	
+			System.out.println("\n\n");
+		}while(!done);
 	}
 	
 	//bubble sort for string array
