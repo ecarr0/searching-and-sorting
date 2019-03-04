@@ -112,7 +112,7 @@ public class SearchAndSort {
 			
 			//prompt for data type
 			do {
-				System.out.println("Enter data. Acceptable responses: a commma-delimited list of data (i.e. 1,2,3,4,5).");
+				System.out.println("Enter the data. Acceptable responses: a commma-delimited list of data (i.e. 1,2,3,4,5).");
 				data = in.next().split(",");
 				if(dataFormat.equals("integers")) {
 					try {
@@ -317,7 +317,7 @@ public class SearchAndSort {
 					break;
 				case "linear":
 					if(type == 1) {
-						System.out.println("What string are you looking for?");
+						System.out.println("What is the target value?");
 						String key = in.next();
 						int index = linear(stringArray, key);
 						if(index > -1) {
@@ -333,7 +333,7 @@ public class SearchAndSort {
 						int key = 0;
 						do {
 							valid = true;
-							System.out.println("What integer are you looking for?");
+							System.out.println("What is the target value?");
 							try {
 								key = Integer.parseInt(in.next());
 							}catch(NumberFormatException e) {
@@ -351,7 +351,7 @@ public class SearchAndSort {
 						intArray = null;
 					}
 					else if(type == 3) {
-						System.out.println("What string are you looking for?");
+						System.out.println("What is the target value?");
 						String key = in.next();
 						stringArray = new String[stringList.size()];
 						for(int i = 0; i < stringList.size(); i++) {
@@ -372,7 +372,7 @@ public class SearchAndSort {
 						int key = 0;
 						do {
 							valid = true;
-							System.out.println("What integer are you looking for?");
+							System.out.println("What is the target value?");
 							try {
 								key = Integer.parseInt(in.next());
 							}catch(NumberFormatException e) {
@@ -398,7 +398,7 @@ public class SearchAndSort {
 				case "binary":
 					if(type == 1) {
 						bubble(stringArray);
-						System.out.println("What string are you looking for?");
+						System.out.println("What is the target value?");
 						String key = in.next();
 						int index = binary(stringArray, 0, stringArray.length - 1, key);
 						if(index > -1) {
@@ -415,7 +415,7 @@ public class SearchAndSort {
 						int key = 0;
 						do {
 							valid = true;
-							System.out.println("What integer are you looking for?");
+							System.out.println("What is the target value?");
 							try {
 								key = Integer.parseInt(in.next());
 							}catch(NumberFormatException e) {
@@ -434,7 +434,7 @@ public class SearchAndSort {
 					}
 					else if(type == 3) {
 						bubble(3);
-						System.out.println("What string are you looking for?");
+						System.out.println("What is the target value?");
 						String key = in.next();
 						stringArray = new String[stringList.size()];
 						for(int i = 0; i < stringList.size(); i++) {
@@ -456,7 +456,7 @@ public class SearchAndSort {
 						int key = 0;
 						do {
 							valid = true;
-							System.out.println("What integer are you looking for?");
+							System.out.println("What is the target value?");
 							try {
 								key = Integer.parseInt(in.next());
 							}catch(NumberFormatException e) {
