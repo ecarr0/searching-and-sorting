@@ -44,7 +44,7 @@ public class SearchAndSort {
 			//prompt for algorithm type
 			do {
 				//get and check algorithm type
-				System.out.println("What algorithm would you like to use?\nFor sorting, enter bubble, selection, insertion, or merge.\nFor searching, enter linear or binary. To quit, enter quit.");
+				System.out.println("What algorithm would you like to execute? Acceptable responses: bubble, selection, insertion, merge, linear, binary, quit (all case-insensitive).");
 				algorithm = in.next().toLowerCase();
 				for(int i = 0; i < algorithmTypes.length - 1; i++) {
 					if(algorithm.equals(algorithmTypes[i])) {
@@ -66,7 +66,7 @@ public class SearchAndSort {
 			
 			//prompt for data type
 			do {
-				System.out.println("What type of data will you be entering?\nYou can enter either \"integers\" or \"strings\". To quit, enter quit.");
+				System.out.println("What type of data? Acceptable responses: integers, strings.");
 				dataFormat = in.next().toLowerCase();
 				for(int i = 0; i < dataTypes.length; i++) {
 					if(dataFormat.equals(dataTypes[i])) {
@@ -88,7 +88,7 @@ public class SearchAndSort {
 			
 			//prompt for storage type
 			do {
-				System.out.println("What storage method would you like to use?\nYou can enter either \"list\" or \"array\". To quit, enter quit.");
+				System.out.println("How is it stored? Acceptable responses: array, list.");
 				storageMethod = in.next().toLowerCase();
 				for(int i = 0; i < storageTypes.length; i++) {
 					if(storageMethod.equals(storageTypes[i])) {
@@ -112,7 +112,7 @@ public class SearchAndSort {
 			
 			//prompt for data type
 			do {
-				System.out.println("Please enter your data separated by commas (no spaces). To quit, enter quit.");
+				System.out.println("Enter data. Acceptable responses: a commma-delimited list of data (i.e. 1,2,3,4,5).");
 				data = in.next().split(",");
 				if(dataFormat.equals("integers")) {
 					try {
@@ -400,9 +400,9 @@ public class SearchAndSort {
 						bubble(stringArray);
 						System.out.println("What string are you looking for?");
 						String key = in.next();
-						int index = binary(stringArray, 0, stringArray.length, key);
+						int index = binary(stringArray, 0, stringArray.length - 1, key);
 						if(index > -1) {
-							System.out.println("The string \"" + key +"\" was found at index " + index + ".");
+							System.out.println("The string \"" + key +"\" was found in the sorted array at index " + index + ".");
 						}
 						else {
 							System.out.println("The string \"" + key +"\" was not found in the array provided.");
@@ -423,9 +423,9 @@ public class SearchAndSort {
 								valid = false;
 							}
 						}while(!valid);
-						int index = binary(intArray, 0, intArray.length, key);
+						int index = binary(intArray, 0, intArray.length - 1, key);
 						if(index > -1) {
-							System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+							System.out.println("The integer \"" + key +"\" was found in the sorted array at index " + index + ".");
 						}
 						else {
 							System.out.println("The integer \"" + key +"\" was not found in the array provided.");
@@ -440,9 +440,9 @@ public class SearchAndSort {
 						for(int i = 0; i < stringList.size(); i++) {
 							stringArray[i] = stringList.get(i);
 						}
-						int index = binary(stringArray, 0, stringArray.length, key);
+						int index = binary(stringArray, 0, stringArray.length - 1, key);
 						if(index > -1) {
-							System.out.println("The string \"" + key +"\" was found at index " + index + ".");
+							System.out.println("The string \"" + key +"\" was found int the sorted array at index " + index + ".");
 						}
 						else {
 							System.out.println("The string \"" + key +"\" was not found in the list provided.");
@@ -468,9 +468,9 @@ public class SearchAndSort {
 						for(int i = 0; i < intList.size(); i++) {
 							intArray[i] = intList.get(i);
 						}
-						int index = binary(intArray, 0, intArray.length, key);
+						int index = binary(intArray, 0, intArray.length - 1, key);
 						if(index > -1) {
-							System.out.println("The integer \"" + key +"\" was found at index " + index + ".");
+							System.out.println("The integer \"" + key +"\" was found in the sorted array at index " + index + ".");
 						}
 						else {
 							System.out.println("The integer \"" + key +"\" was not found in the array provided.");
@@ -493,7 +493,7 @@ public class SearchAndSort {
 		do {
 			sorted = true;
 			for(int i = 1; i < array.length; i++) {
-				if(array[i].compareToIgnoreCase(array[i - 1]) < 0) {
+				if(array[i].compareTo(array[i - 1]) < 0) {
 					sorted = false;
 					String temp = array[i];
 					array[i] = array[i-1];
@@ -526,7 +526,7 @@ public class SearchAndSort {
 			do {
 				sorted = true;
 				for(int i = 1; i < stringList.size(); i++) {
-					if(stringList.get(i).compareToIgnoreCase(stringList.get(i - 1)) < 0) {
+					if(stringList.get(i).compareTo(stringList.get(i - 1)) < 0) {
 						sorted = false;
 						String temp = stringList.get(i);
 						stringList.set(i, stringList.get(i-1));
@@ -551,96 +551,76 @@ public class SearchAndSort {
 	}
 	
 	//selection sort for string array
-	public static void selection(String[] array) {
-		boolean sorted = false;
-		int counter = 0;
-		do {
-			sorted = true;
-			int minIndex = counter;
-			String min = array[counter];
-			for(int i = counter + 1; i < array.length; i++) {
-				if(min.compareToIgnoreCase(array[i]) > 0) {
-					min = array[i];
-					minIndex = i;
-					sorted = false;
+	public static void selection(String[] stringArray) {
+		for(int i = 0; i < stringArray.length - 1; i++) {
+			int minIndex = i;
+			String min = stringArray[i];
+			for(int j = i + 1; j < stringArray.length; j++) {
+				if(min.compareTo(stringArray[j]) > 0) {
+					min = stringArray[j];
+					minIndex = j;
 				}
 			}
-			for(int j = minIndex; j > counter; j--) {
-				array[j] = array[j-1];
+			for(int k = minIndex; k > i; k--) {
+				stringArray[k] = stringArray[k-1];
 			}
-			array[counter] = min;
-			counter++;
-		}while(!sorted);
+			stringArray[i] = min;
+		}
 	}
 	
 	//selection sort for int array
-	public static void selection(int[] array) {
-		boolean sorted = false;
-		int counter = 0;
-		do {
-			sorted = true;
-			int minIndex = counter;
-			int min = array[counter];
-			for(int i = counter + 1; i < array.length; i++) {
-				if(min > array[i]) {
-					min = array[i];
-					minIndex = i;
-					sorted = false;
+	public static void selection(int[] intArray) {
+		for(int i = 0; i < intArray.length - 1; i++) {
+			int minIndex = i;
+			int min = intArray[i];
+			for(int j = i + 1; j < intArray.length; j++) {
+				if(min > intArray[j]) {
+					min = intArray[j];
+					minIndex = j;
 				}
 			}
-			for(int j = minIndex; j > counter; j--) {
-				array[j] = array[j-1];
+			for(int k = minIndex; k > i; k--) {
+				intArray[k] = intArray[k-1];
 			}
-			array[counter] = min;
-			counter++;
-		}while(!sorted);
+			intArray[i] = min;
+		}
 	}
 	
 	//selection sort for lists
 	public static void selection(int type) {
 		//sort for stringList
 		if(type == 3) {
-			boolean sorted = false;
-			int counter = 0;
-			do {
-				sorted = true;
-				int minIndex = counter;
-				String min = stringList.get(counter);
-				for(int i = counter + 1; i < stringList.size(); i++) {
-					if(min.compareToIgnoreCase(stringList.get(i)) > 0) {
-						min = stringList.get(i);
-						minIndex = i;
-						sorted = false;
+			for(int i = 0; i < stringList.size() - 1; i++) {
+				int minIndex = i;
+				String min = stringList.get(i);
+				for(int j = i + 1; j < stringList.size(); j++) {
+					if(min.compareTo(stringList.get(j)) > 0) {
+						min = stringList.get(j);
+						minIndex = j;
 					}
 				}
-				for(int j = minIndex; j > counter; j--) {
-					stringList.set(j, stringList.get(j-1));
+				for(int k = minIndex; k > i; k--) {
+					stringList.set(k, stringList.get(k-1));
 				}
-				stringList.set(counter, min);
-				counter++;
-			}while(!sorted);
+				stringList.set(i, min);
+			}
 		}
 		//sort for intList
 		else {
-			boolean sorted = false;
-			int counter = 0;
-			do {
-				sorted = true;
-				int minIndex = counter;
-				int min = intList.get(counter);
-				for(int i = counter + 1; i < intList.size(); i++) {
-					if(min > intList.get(i)) {
-						min = intList.get(i);
-						minIndex = i;
-						sorted = false;
+			for(int i = 0; i < intList.size() - 1; i++) {
+				int minIndex = i;
+				int min = intList.get(i);
+				for(int j = i + 1; j < intList.size(); j++) {
+					if(min > intList.get(j)) {
+						min = intList.get(j);
+						minIndex = j;
 					}
 				}
-				for(int j = minIndex; j > counter; j--) {
-					intList.set(j, intList.get(j-1));
+				for(int k = minIndex; k > i; k--) {
+					intList.set(k, intList.get(k-1));
 				}
-				intList.set(counter, min);
-				counter++;
-			}while(!sorted);
+				intList.set(i, min);
+			}
 		}
 	}
 	
@@ -649,7 +629,7 @@ public class SearchAndSort {
 		for(int i = 1; i < array.length; ++i) {
 			int counter = i - 1;
 			String temp = array[i];
-			while(counter >= 0 && array[counter].compareToIgnoreCase(temp) > 0) {
+			while(counter >= 0 && array[counter].compareTo(temp) > 0) {
 				array[counter + 1] = array[counter];
 				counter--;
 			}
@@ -677,7 +657,7 @@ public class SearchAndSort {
 			for(int i = 1; i < stringList.size(); ++i) {
 				int counter = i - 1;
 				String temp = stringList.get(i);
-				while(counter >= 0 && stringList.get(counter).compareToIgnoreCase(temp) > 0) {
+				while(counter >= 0 && stringList.get(counter).compareTo(temp) > 0) {
 					stringList.set(counter + 1, stringList.get(counter));
 					counter--;
 				}
@@ -717,11 +697,6 @@ public class SearchAndSort {
 			array2[i - (midPoint)] = stringArray[i];
 		}
 		
-		System.out.println("Array1: " + Arrays.toString(array1));
-		
-		System.out.println("Array2: " + Arrays.toString(array2));
-		
-		
 		splitForMerge(array1, midPoint);
 		splitForMerge(array2, length - midPoint);
 		
@@ -734,11 +709,10 @@ public class SearchAndSort {
 		int counter2 = 0;
 		int arrayCounter = 0;
 		while(counter1 < length1 && counter2 < length2) {
-			if(array1[counter1].compareToIgnoreCase(array2[counter2]) <= 0) {
+			if(array1[counter1].compareTo(array2[counter2]) <= 0) {
 				stringArray[arrayCounter] = array1[counter1];
 				arrayCounter++;
 				counter1++;
-				System.out.println("Array: " + Arrays.toString(intArray));
 			}
 			else {
 				stringArray[arrayCounter] = array2[counter2];
@@ -778,10 +752,6 @@ public class SearchAndSort {
 			array2[i - (midPoint)] = intArray[i];
 		}
 		
-		System.out.println("Array1: " + Arrays.toString(array1));
-		
-		System.out.println("Array2: " + Arrays.toString(array2));
-		
 		
 		splitForMerge(array1, midPoint);
 		splitForMerge(array2, length - midPoint);
@@ -798,7 +768,6 @@ public class SearchAndSort {
 				intArray[arrayCounter] = array1[counter1];
 				arrayCounter++;
 				counter1++;
-				System.out.println("Array: " + Arrays.toString(intArray));
 			}
 			else {
 				intArray[arrayCounter] = array2[counter2];
@@ -894,34 +863,32 @@ public class SearchAndSort {
 	}
 	
 	public static int binary(String[] stringArray, int lower, int upper, String key) {
-		if(upper > 0) {
-			int midPoint = (lower + (upper - 1)) / 2;
+		int midPoint = (int)(lower + (upper - lower) / 2);;
+		if(upper > 0 && midPoint <= upper) {
+			midPoint = (int)(lower + (upper - lower) / 2);
 			if(stringArray[midPoint].compareTo(key) == 0) {
 				return midPoint;
 			}
-			else if(stringArray[midPoint].compareTo(key) > 0) {
+			if(stringArray[midPoint].compareTo(key) > 0) {
 				return binary(stringArray, lower, midPoint - 1, key);
 			}
-			else if(stringArray[midPoint].compareTo(key) < 0) {
-				return binary(stringArray, midPoint + 1, upper, key);
-			}
+			return binary(stringArray, midPoint + 1, upper, key);
 		}
 		
 		return -1;
 	}
 	
 	public static int binary(int[] intArray, int lower, int upper, int key) {
-		if(upper > 0) {
-			int midPoint = (lower + (upper - 1)) / 2;
+		int midPoint = (int)(lower + (upper - lower) / 2);;
+		if(upper > 0 && midPoint <= upper) {
+			midPoint = (int)(lower + (upper - lower) / 2);
 			if(intArray[midPoint] == key) {
 				return midPoint;
 			}
-			else if(intArray[midPoint] > key) {
+			if(intArray[midPoint] > key) {
 				return binary(intArray, lower, midPoint - 1, key);
 			}
-			else if(intArray[midPoint] < key) {
-				return binary(intArray, midPoint + 1, upper, key);
-			}
+			return binary(intArray, midPoint + 1, upper, key);
 		}
 		return -1;
 	}
